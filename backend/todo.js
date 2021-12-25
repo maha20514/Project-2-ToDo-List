@@ -2,7 +2,7 @@ const{Sechema, model, Schema} = require("mongoose");
 
 
 const todoSchema = new Schema({
-    titlt: String,
+    title: String,
     isCompleted: Boolean
 })
 

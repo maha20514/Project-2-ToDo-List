@@ -1,11 +1,11 @@
-const mongosse = require('mongoose')
+const mongoose = require('mongoose')
 
 const dbURL= 'mongodb://localhost:27017/TodoListV01'
 
-mongosse.connect(dbURL)
+mongoose.connect(dbURL)
 
 //Extra
-const db = mongosse.connection
+const db = mongoose.connection
 
 db.on('erroe', (err)=>{
     console.log("ERROR in MongoDB")
