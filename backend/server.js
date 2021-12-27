@@ -1,15 +1,15 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 
-const db=require('./db')
-const Todo= require('./todo')
+const db=require('./db');
+const Todo= require('./todo');
 //console.log(Todo);
 
 app.use(express.json());
 
 app.get('/', (req, res)=>{
-    res.json('GET / is working')
+    res.json('GET / is working');
 });
 
 app.get('/tasks', (req, res)=>{
@@ -36,8 +36,8 @@ app.post("/tasks", (req, res)=>{
      {
          res.status(201).json(newTask);
      } 
- });
-});
+ })
+})
 app.listen(5000, ()=>{
     console.log('SERVER IS WORKING...')
-})
+});
