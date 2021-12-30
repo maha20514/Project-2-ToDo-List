@@ -8,6 +8,9 @@ const Todo= require('./todo');
 
 app.use(express.json());
 
+
+//CRUD : Create , Read , Update , Delete
+
 app.get('/', (req, res)=>{
     res.json('GET / is working');
 });
@@ -24,6 +27,46 @@ app.get('/tasks', (req, res)=>{
     })
     res.json('GET / is  working')
 });
+
+app.get('/filter' , (req , res) =>{
+  
+    Todo.find({isCompleted : req.query.isCompleted} , (err , data)=>{
+        if(err)
+        {
+            console.log('ERROR: ', err)
+        }else
+        {  // console.log(data)
+            res.json(data)
+        }
+    });
+});
+
+/*  The above endpoint is replace to these two
+    app.get('/completed' , (req , res) =>{
+    Todo.find({isCompleted : true} , (err , data)=>{
+        if(err)
+        {
+            console.log('ERROR: ', err)
+        }else
+        {  // console.log(data)
+            res.json(data)
+        }
+    })
+});
+
+app.get('/not_completed' , (req , res) =>{
+  
+    Todo.find({isCompleted : false} , (err , data)=>{
+        if(err)
+        {
+            console.log('ERROR: ', err)
+        }else
+        {  // console.log(data)
+            res.json(data)
+        }
+    })
+}); */
+
 
 
 app.post("/tasks", (req, res)=>{
@@ -69,7 +112,8 @@ app.put("/tasks/:id", (req, res)=>{
 
      } 
     })
-})
+});
+
 app.listen(5000, ()=>{
     console.log('SERVER IS WORKING...')
 });
