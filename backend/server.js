@@ -36,7 +36,39 @@ app.post("/tasks", (req, res)=>{
      {
          res.status(201).json(newTask);
      } 
- })
+ });
+});
+
+app.delete("/tasks/:id", (req , res)=>{
+    Todo.deleteOne({id: req.params.id} , (err, deleteobj)=>{
+        if(err)
+        {
+            console.log("ERROE: ", err);
+        }else{
+            deleteobj.deltedCount === 1 
+              ?res.json('Delete one todo successfuly..')
+              :res.status(404).json('This todo is not found');
+
+            //console.log(deleteobj);
+        }
+    });
+});
+
+app.put("/tasks/:id", (req, res)=>{
+    Todo.updateOne({id : req.params.id},{title : req.body.newTitle}
+     , (err , updateobj)=>{
+        if(err)
+     {
+         console.log("EROOR: ", err);
+         res.json(400).json(err)
+     }else
+     {  updateobj.modifiedCount ==1 
+        ?res.json("Updated Sucessfuly..")
+        :res.status(404).json('This todo is not found');
+
+
+     } 
+    })
 })
 app.listen(5000, ()=>{
     console.log('SERVER IS WORKING...')
