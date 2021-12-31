@@ -114,6 +114,36 @@ app.put("/tasks/:id", (req, res)=>{
     })
 });
 
+app.delete("/delete_completed" , (req, res)=>{
+    Todo.deleteMany({isCompleted : true}, (err, deleteobj)=>{
+        if(err)
+        {
+            console.log("ERROR: ", err)
+        }else
+        {
+            deleteobj.deltedCount === 0 
+            ?res.json('There is np cpmpleted todo found')
+            :res.status(404).json('Delete all completed todos successfuly..');
+        }
+    });
+});
+
+app.put("/tasks/:id/:isCompleted", (req, res)=>{
+    console.log("124: ", req.params)
+    Todo.updateOne({_id: req.params.id}, {isCompleted: req.params.isCompleted} 
+     , (err , updateobj)=>{
+        if(err)
+     {
+         console.log("EROOR: ", err);
+         res.json(400).json(err)
+     }else
+     {  updateobj.modifiedCount ==1 
+        ?res.json("Updated Sucessfuly..")
+        :res.status(404).json('This todo is not found');
+     } 
+    });
+});
+
 app.listen(5000, ()=>{
     console.log('SERVER IS WORKING...')
 });
